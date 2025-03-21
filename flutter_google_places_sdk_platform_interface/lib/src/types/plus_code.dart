@@ -7,7 +7,7 @@ part 'plus_code.g.dart';
 ///
 /// Ref: https://developers.google.com/maps/documentation/places/android-sdk/reference/com/google/android/libraries/places/api/model/PlusCode
 @freezed
-class PlusCode with _$PlusCode {
+abstract class PlusCode with _$PlusCode {
   /// Constructs a [PlusCode] object.
   const factory PlusCode({
     /// The compound plus code, e.g. "9G8F+5W Zurich, Switzerland".
@@ -18,6 +18,5 @@ class PlusCode with _$PlusCode {
   }) = _PlusCode;
 
   /// Parse an [PlusCode] from json.
-  factory PlusCode.fromJson(Map<String, Object?> json) =>
-      _$PlusCodeFromJson(json);
+  factory PlusCode.fromJson(Map<String, Object?> json) => _$PlusCodeFromJson(json);
 }

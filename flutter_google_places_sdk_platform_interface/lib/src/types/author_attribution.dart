@@ -1,11 +1,10 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'author_attribution.freezed.dart';
 part 'author_attribution.g.dart';
 
 @Freezed()
-class AuthorAttribution with _$AuthorAttribution {
+abstract class AuthorAttribution with _$AuthorAttribution {
   /// Constructs a [AuthorAttribution] object.
   const factory AuthorAttribution({
     /// The name of the author.

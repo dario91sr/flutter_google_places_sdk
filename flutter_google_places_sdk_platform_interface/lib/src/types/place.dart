@@ -20,7 +20,7 @@ part 'place.g.dart';
 ///
 /// Ref: https://developers.google.com/maps/documentation/places/android-sdk/reference/com/google/android/libraries/places/api/model/Place
 @freezed
-class Place with _$Place {
+abstract class Place with _$Place {
   const factory Place({
     required String? id,
     required String? address,
@@ -45,8 +45,7 @@ class Place with _$Place {
   }) = _Place;
 
   /// Parse an [Place] from json.
-  factory Place.fromJson(Map<String, Object?> json) =>
-      _$PlaceFromJson(json);
+  factory Place.fromJson(Map<String, Object?> json) => _$PlaceFromJson(json);
 
 //
 // static Place fromMap(Map<String, Object> map) => Place(

@@ -12,8 +12,7 @@ import 'types/types.dart';
 final _kLogPrefix = 'flutter_google_place_sdk_windows_plugin :: WARN -';
 
 /// Http implementation plugin for flutter google places sdk
-class FlutterGooglePlacesSdkHttpPlugin
-    extends inter.FlutterGooglePlacesSdkPlatform {
+class FlutterGooglePlacesSdkHttpPlugin extends inter.FlutterGooglePlacesSdkPlatform {
   static const _kAPI_HOST = 'https://maps.googleapis.com';
 
   static const _kAPI_PLACES = '${_kAPI_HOST}/maps/api/place';
@@ -30,7 +29,7 @@ class FlutterGooglePlacesSdkHttpPlugin
   }
 
   @override
-  Future<void> initialize(String apiKey, {Locale? locale}) async {
+  Future<void> initialize(String apiKey, {Locale? locale, bool? useNewApi}) async {
     _apiKey = apiKey;
     _locale = locale;
   }
@@ -39,7 +38,7 @@ class FlutterGooglePlacesSdkHttpPlugin
   Future<bool?> isInitialized() async => _apiKey != null;
 
   @override
-  Future<void> updateSettings(String apiKey, {Locale? locale}) async {
+  Future<void> updateSettings(String apiKey, {Locale? locale, bool? useNewApi}) async {
     _apiKey = apiKey;
     if (locale != null) {
       _locale = locale;
@@ -57,8 +56,8 @@ class FlutterGooglePlacesSdkHttpPlugin
     inter.LatLngBounds? locationRestriction,
   }) async {
     final sessionToken = (newSessionToken ?? false) ? null : _lastSessionToken;
-    final url = _buildAutocompleteUrl(query, countries, placeTypesFilter,
-        sessionToken, origin, locationBias, locationRestriction);
+    final url = _buildAutocompleteUrl(query, countries, placeTypesFilter, sessionToken, origin,
+        locationBias, locationRestriction);
 
     final PlacesAutocompleteResponse response =
         await _doGet(url, (json) => PlacesAutocompleteResponse.fromJson(json));
@@ -68,9 +67,7 @@ class FlutterGooglePlacesSdkHttpPlugin
       throw response;
     }
 
-    final predictions = response.predictions
-        .map((e) => e.toInterface())
-        .toList(growable: false);
+    final predictions = response.predictions.map((e) => e.toInterface()).toList(growable: false);
     return inter.FindAutocompletePredictionsResponse(predictions);
   }
 
@@ -79,6 +76,7 @@ class FlutterGooglePlacesSdkHttpPlugin
     String placeId, {
     List<inter.PlaceField>? fields,
     bool? newSessionToken,
+    String? regionCode,
   }) async {
     throw UnimplementedError();
   }
@@ -111,8 +109,7 @@ class FlutterGooglePlacesSdkHttpPlugin
 
     // -- Countries (to Components)
     if (countries != null) {
-      final strCountries =
-          countries.map((country) => 'country:$country').join('|');
+      final strCountries = countries.map((country) => 'country:$country').join('|');
       url += '&components=${strCountries}';
     }
 
@@ -149,8 +146,7 @@ class FlutterGooglePlacesSdkHttpPlugin
     return url;
   }
 
-  Future<T> _doGet<T>(
-      String url, T Function(Map<String, Object?>) jsonParser) async {
+  Future<T> _doGet<T>(String url, T Function(Map<String, Object?>) jsonParser) async {
     final response = await http.get(Uri.parse(url));
 
     String? strBody = null;
@@ -160,9 +156,7 @@ class FlutterGooglePlacesSdkHttpPlugin
     } catch (err) {
       strBodyErr = 'Failed decoding body! ' + err.toString();
     }
-    if (response.statusCode < 200 ||
-        response.statusCode >= 300 ||
-        strBody == null) {
+    if (response.statusCode < 200 || response.statusCode >= 300 || strBody == null) {
       final err =
           "Bad result on call to $url. Status code (${response.statusCode}), body: $strBody, bodyFetchErr (if any): $strBodyErr";
       throw err;

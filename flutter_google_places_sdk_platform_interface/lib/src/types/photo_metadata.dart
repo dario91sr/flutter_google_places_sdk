@@ -7,7 +7,7 @@ part 'photo_metadata.g.dart';
 ///
 /// Ref: https://developers.google.com/maps/documentation/places/android-sdk/reference/com/google/android/libraries/places/api/model/PhotoMetadata
 @freezed
-class PhotoMetadata with _$PhotoMetadata {
+abstract class PhotoMetadata with _$PhotoMetadata {
   const factory PhotoMetadata({
     /// Non-empty String used to identify the underlying photo.
     required String photoReference,
@@ -23,6 +23,5 @@ class PhotoMetadata with _$PhotoMetadata {
   }) = _PhotoMetadata;
 
   /// Parse an [PhotoMetadata] from json.
-  factory PhotoMetadata.fromJson(Map<String, Object?> json) =>
-      _$PhotoMetadataFromJson(json);
+  factory PhotoMetadata.fromJson(Map<String, Object?> json) => _$PhotoMetadataFromJson(json);
 }

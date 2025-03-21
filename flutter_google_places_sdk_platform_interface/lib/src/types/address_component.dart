@@ -8,7 +8,7 @@ part 'address_component.g.dart';
 ///
 /// Ref: https://developers.google.com/maps/documentation/places/android-sdk/reference/com/google/android/libraries/places/api/model/AddressComponent
 @freezed
-class AddressComponent with _$AddressComponent {
+abstract class AddressComponent with _$AddressComponent {
   /// Constructs an [AddressComponent] object.
   const factory AddressComponent({
     /// Name of the address component, e.g. "Sydney".
@@ -24,6 +24,5 @@ class AddressComponent with _$AddressComponent {
   }) = _AddressComponent;
 
   /// Parse an [AddressComponent] from json.
-  factory AddressComponent.fromJson(Map<String, Object?> json) =>
-      _$AddressComponentFromJson(json);
+  factory AddressComponent.fromJson(Map<String, Object?> json) => _$AddressComponentFromJson(json);
 }

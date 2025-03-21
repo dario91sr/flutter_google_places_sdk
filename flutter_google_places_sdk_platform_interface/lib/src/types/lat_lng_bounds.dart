@@ -8,7 +8,7 @@ part 'lat_lng_bounds.g.dart';
 ///
 /// Ref: https://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLngBounds.html
 @Freezed()
-class LatLngBounds with _$LatLngBounds {
+abstract class LatLngBounds with _$LatLngBounds {
   /// constructs a [LatLngBounds] object.
   const factory LatLngBounds({
     /// The southwest coordinate of the bounds.
@@ -19,6 +19,5 @@ class LatLngBounds with _$LatLngBounds {
   }) = _LatLngBounds;
 
   /// Parse an [LatLngBounds] from json.
-  factory LatLngBounds.fromJson(Map<String, Object?> json) =>
-      _$LatLngBoundsFromJson(json);
+  factory LatLngBounds.fromJson(Map<String, Object?> json) => _$LatLngBoundsFromJson(json);
 }

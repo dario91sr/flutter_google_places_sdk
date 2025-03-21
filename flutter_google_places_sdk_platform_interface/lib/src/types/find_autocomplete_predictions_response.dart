@@ -5,8 +5,7 @@ part 'find_autocomplete_predictions_response.freezed.dart';
 
 /// The response for a [FlutterGooglePlacesSdkPlatform.findAutocompletePredictions] request
 @freezed
-class FindAutocompletePredictionsResponse
-    with _$FindAutocompletePredictionsResponse {
+abstract class FindAutocompletePredictionsResponse with _$FindAutocompletePredictionsResponse {
   /// constructs a [FindAutocompletePredictionsResponse] object.
   const factory FindAutocompletePredictionsResponse(
     /// the AutocompletePrediction list returned by the response.

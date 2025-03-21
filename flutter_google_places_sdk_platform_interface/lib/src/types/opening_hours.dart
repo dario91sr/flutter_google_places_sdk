@@ -8,7 +8,7 @@ part 'opening_hours.g.dart';
 ///
 /// Ref: https://developers.google.com/maps/documentation/places/android-sdk/reference/com/google/android/libraries/places/api/model/OpeningHours
 @freezed
-class OpeningHours with _$OpeningHours {
+abstract class OpeningHours with _$OpeningHours {
   /// constructs an [OpeningHours] object.
   const factory OpeningHours({
     /// A list of Period objects that provide more detailed information that is equivalent to the data provided by getWeekdayText().
@@ -19,6 +19,5 @@ class OpeningHours with _$OpeningHours {
   }) = _OpeningHours;
 
   /// Parse an [OpeningHours] from json.
-  factory OpeningHours.fromJson(Map<String, Object?> json) =>
-      _$OpeningHoursFromJson(json);
+  factory OpeningHours.fromJson(Map<String, Object?> json) => _$OpeningHoursFromJson(json);
 }
